@@ -1,0 +1,14 @@
+pkgbase = naveen-customization
+	pkgdesc = Platform engineer defaults: Zero-latency HID rules and core CLI tools
+	pkgver = 1.0.0
+	pkgrel = 1
+	url = https://github.com/NOLFXceptMe/naveen-arch
+	arch = any
+	license = MIT
+	depends = solaar
+	depends = libinput
+	depends = usbutils
+	source = 99-logitech-unifying.rules
+	sha256sums = SKIP
+
+pkgname = naveen-customization

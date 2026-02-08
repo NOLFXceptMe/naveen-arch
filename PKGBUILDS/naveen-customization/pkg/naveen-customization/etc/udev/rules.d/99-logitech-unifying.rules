@@ -1,0 +1,3 @@
+# Logitech Unifying Receiver (M575)
+# Disable USB autosuspend and pin power to 'on' for zero-latency input
+SUBSYSTEM=="usb", ATTR{idVendor}=="046d", ATTR{idProduct}=="c52b", ATTR{power/control}="on", ATTR{power/autosuspend}="0"
