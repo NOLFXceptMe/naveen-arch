@@ -1,0 +1,29 @@
+post_install() {
+    echo " "
+    echo "----------------------------------------------------------------"
+    echo "  NAVEEN-ARCH: SANE DEFAULTS DEPLOYED"
+    echo "----------------------------------------------------------------"
+    
+    # 1. Bootloader Detection
+    if [ -d /boot/grub ]; then
+        echo ":: [ACTION] GRUB detected. Update your config to boot Linux-Zen:"
+        echo "   sudo grub-mkconfig -o /boot/grub/grub.cfg"
+    elif [ -d /boot/loader/entries ]; then
+        echo ":: [ACTION] systemd-boot detected. Create a new entry in:"
+        echo "   /boot/loader/entries/linux-zen.conf"
+    fi
+
+    # 2. Service Activation
+    echo ":: [ACTION] Enable your UI optimizations:"
+    echo "   systemctl --user enable --now xfwm4-priority.service"
+    
+    # 3. Hardware Check
+    echo ":: [INFO] USB Polling rules have been written to /etc/udev/rules.d/"
+    echo "   Reloading udev rules now..."
+    udevadm control --reload-rules && udevadm trigger
+    echo "----------------------------------------------------------------"
+}
+
+post_upgrade() {
+    post_install
+}

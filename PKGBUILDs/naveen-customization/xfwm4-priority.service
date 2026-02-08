@@ -1,0 +1,11 @@
+[Unit]
+Description=Naveen's XFWM4 and Steam Performance Tweaks
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/naveen-optimizations.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=graphical-session.target

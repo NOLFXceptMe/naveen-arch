@@ -1,0 +1,29 @@
+pkgname=naveen-customization
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="Naveen's Custom Arch: Zen Kernel, Zero-Lag HID, and XFWM4 Priority"
+arch=('any')
+license=('MIT')
+install=naveen-customization.install
+
+# Adding linux-zen and headers as hard dependencies for your "distro"
+depends=('linux-zen' 'linux-zen-headers' 'solaar' 'libinput' 'usbutils')
+
+source=('99-logitech-unifying.rules' 
+        'naveen-optimizations.sh' 
+        'xfwm4-priority.service')
+sha256sums=('SKIP' 'SKIP' 'SKIP')
+
+package() {
+  # 1. Hardware Rules
+  install -Dm644 "99-logitech-unifying.rules" \
+    "${pkgdir}/etc/udev/rules.d/99-logitech-unifying.rules"
+
+  # 2. Optimization Scripts
+  install -Dm755 "naveen-optimizations.sh" \
+    "${pkgdir}/usr/bin/naveen-optimizations.sh"
+
+  # 3. Systemd Service
+  install -Dm644 "xfwm4-priority.service" \
+    "${pkgdir}/usr/lib/systemd/user/xfwm4-priority.service"
+}

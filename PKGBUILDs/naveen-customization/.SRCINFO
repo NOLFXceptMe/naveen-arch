@@ -1,14 +1,17 @@
 pkgbase = naveen-customization
-	pkgdesc = Platform engineer defaults: Zero-latency HID rules and core CLI tools
-	pkgver = 1.0.0
+	pkgdesc = Naveen's Custom Arch: Zen Kernel, Zero-Lag HID, and XFWM4 Priority
+	pkgver = 1.1.0
 	pkgrel = 1
-	url = https://github.com/NOLFXceptMe/naveen-arch
 	arch = any
 	license = MIT
+	depends = linux-zen
+	depends = linux-zen-headers
 	depends = solaar
 	depends = libinput
 	depends = usbutils
 	source = 99-logitech-unifying.rules
+	source = naveen-optimizations.sh
+	source = xfwm4-priority.service
 	sha256sums = SKIP
 
 pkgname = naveen-customization
