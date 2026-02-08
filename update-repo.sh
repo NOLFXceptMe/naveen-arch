@@ -14,6 +14,7 @@ echo ":: Building naveen-customization..."
 makepkg -sfC --noconfirm
 
 echo ":: Moving binaries to repo..."
+mkdir -p $REPO_DIR
 mv *.pkg.tar.zst "$REPO_DIR/"
 
 echo ":: Updating repository database..."

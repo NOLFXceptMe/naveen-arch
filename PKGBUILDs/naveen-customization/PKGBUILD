@@ -1,5 +1,5 @@
 pkgname=naveen-customization
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc="Naveen's Custom Arch: Zen Kernel, Zero-Lag HID, and XFWM4 Priority"
 arch=('any')

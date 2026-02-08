@@ -1,11 +1,17 @@
 #!/bin/bash
-# 1. Renice xfwm4 to maximum priority for smooth Alt-Tabbing
-# -20 is the highest priority; requires no password if run via systemd user service with permissions
-PGID=$(pgrep xfwm4)
-if [ -n "$PGID" ]; then
-    renice -n -20 -p "$PGID"
-fi
+# Naveen's Optimization Daemon
 
-# 2. Steam Video Lag Fix (WebHelper optimization)
-# Ensures Steam's web process doesn't get throttled
-pgrep -f "steamwebhelper" | xargs -r renice -n -5
+while true; do
+    # 1. Renice xfwm4 (Check every loop in case of WM restarts)
+    WM_PID=$(pgrep xfwm4)
+    if [ -n "$WM_PID" ]; then
+        renice -n -20 -p "$WM_PID" > /dev/null 2>&1
+    fi
+
+    # 2. Steam Video Lag Fix
+    # Finds all webhelpers and boosts them
+    pgrep -f "steamwebhelper" | xargs -r renice -n -5 > /dev/null 2>&1
+
+    # Sleep for 60 seconds to keep CPU usage at near-zero
+    sleep 60
+done
