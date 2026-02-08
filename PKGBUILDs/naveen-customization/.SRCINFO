@@ -10,6 +10,7 @@ pkgbase = naveen-customization
 	depends = libinput
 	depends = usbutils
 	source = 99-logitech-unifying.rules
+	source = 99-naveen.preset
 	source = naveen-optimizations.sh
 	source = xfwm4-priority.service
 	sha256sums = SKIP

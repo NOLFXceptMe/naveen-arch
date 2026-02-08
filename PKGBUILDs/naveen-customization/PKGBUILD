@@ -10,9 +10,10 @@ install=naveen-customization.install
 depends=('linux-zen' 'linux-zen-headers' 'solaar' 'libinput' 'usbutils')
 
 source=('99-logitech-unifying.rules' 
+        '99-naveen.preset'
         'naveen-optimizations.sh' 
         'xfwm4-priority.service')
-sha256sums=('SKIP' 'SKIP' 'SKIP')
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 package() {
   # 0. Pre-validation
