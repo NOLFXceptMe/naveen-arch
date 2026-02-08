@@ -11,8 +11,14 @@ permissions:
   pages: write
   id-token: write
 
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# This prevents the "Multiple artifacts found" error.
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     container:
       image: archlinux:latest
@@ -20,8 +26,7 @@ jobs:
     
     steps:
       - name: Install system dependencies
-        run: |
-          pacman -Syu --noconfirm base-devel git sudo
+        run: pacman -Syu --noconfirm base-devel git sudo
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,8 +38,7 @@ jobs:
           chown -R builder:builder .
 
       - name: Build naveen-customization
-        run: |
-          sudo -u builder bash -c "cd PKGBUILDs/naveen-customization && makepkg -sf --noconfirm"
+        run: sudo -u builder bash -c "cd PKGBUILDs/naveen-customization && makepkg -sf --noconfirm"
 
       - name: Update Repository Database
         run: |
@@ -43,11 +47,18 @@ jobs:
           cd x86_64
           repo-add naveen_repo.db.tar.gz *.pkg.tar.zst
 
-      - name: Upload to GitHub Pages
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: x86_64/
 
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

@@ -1,0 +1,8 @@
+# Ignore build directories
+PKGBUILDs/*/src/
+PKGBUILDs/*/pkg/
+
+# Ignore local build artifacts
+*.tar.gz
+!x86_64/*.tar.gz
+x86_64/
