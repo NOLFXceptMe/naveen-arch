@@ -15,6 +15,9 @@ source=('99-logitech-unifying.rules'
 sha256sums=('SKIP' 'SKIP' 'SKIP')
 
 package() {
+  # 0. Pre-validation
+  install -Dm644 "99-naveen.preset" "${pkgdir}/usr/lib/systemd/user-preset/99-naveen.preset"
+
   # 1. Hardware Rules
   install -Dm644 "99-logitech-unifying.rules" \
     "${pkgdir}/etc/udev/rules.d/99-logitech-unifying.rules"

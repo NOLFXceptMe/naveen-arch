@@ -1,0 +1,1 @@
+/home/naveen/code/naveen-arch/PKGBUILDs/naveen-customization/naveen-optimizations.sh
