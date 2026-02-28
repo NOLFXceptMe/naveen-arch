@@ -22,8 +22,8 @@ fi
 
 # 2. Optimization Service Check
 echo -n "[2/5] Optimization Service: "
-if systemctl --user is-active xfwm4-priority.service >/dev/null 2>&1; then
-    echo -e "${GREEN}✅ xfwm4-priority.service is ACTIVE.${NC}"
+if systemctl is-active xfwm4-priority.service >/dev/null 2>&1; then
+    echo -e "${GREEN}✅ xfwm4-priority.service is ACTIVE (System Level).${NC}"
 else
     echo -e "${RED}❌ xfwm4-priority.service is INACTIVE.${NC}"
 fi
@@ -52,16 +52,15 @@ fi
 
 # 5. Keyboard Shortcut Config Check
 echo -n "[5/5] Keyboard Config: "
-TARGET_CONFIG="/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml"
+TARGET_CONFIG="/etc/xdg-naveen/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml"
 if [ -f "$TARGET_CONFIG" ]; then
-    # Simple check if our custom terminal 'ghostty' is mentioned in the system-wide config
     if grep -q "ghostty" "$TARGET_CONFIG"; then
-        echo -e "${GREEN}✅ Custom shortcuts found in system-wide config.${NC}"
+        echo -e "${GREEN}✅ Custom shortcuts found in /etc/xdg-naveen/.${NC}"
     else
-        echo -e "${YELLOW}⚠️ System-wide config exists but 'ghostty' not found. Reinstall may be needed.${NC}"
+        echo -e "${YELLOW}⚠️ Custom config exists but 'ghostty' not found.${NC}"
     fi
 else
-    echo -e "${RED}❌ System-wide keyboard config MISSING.${NC}"
+    echo -e "${RED}❌ Custom keyboard config MISSING from /etc/xdg-naveen/.${NC}"
 fi
 
 echo -e "

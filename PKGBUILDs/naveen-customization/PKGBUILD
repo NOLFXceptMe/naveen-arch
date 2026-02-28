@@ -1,5 +1,5 @@
 pkgname=naveen-customization
-pkgver=1.2.0
+pkgver=1.2.1
 pkgrel=1
 pkgdesc="Naveen's Custom Arch: Zen Kernel, Zero-Lag HID, and XFWM4 Priority"
 arch=('any')
@@ -36,9 +36,9 @@ package() {
   install -Dm755 "apply-shortcuts.sh" \
     "${pkgdir}/usr/bin/apply-shortcuts"
 
-  # 3. Systemd Service
+  # 3. Systemd Service (System Level for Root Privileges)
   install -Dm644 "xfwm4-priority.service" \
-    "${pkgdir}/usr/lib/systemd/user/xfwm4-priority.service"
+    "${pkgdir}/usr/lib/systemd/system/xfwm4-priority.service"
 
   # 4. Keyboard Shortcuts (XDG Defaults)
   # This sets system-wide defaults for anyone using XFCE on this machine

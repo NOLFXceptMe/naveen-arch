@@ -15,7 +15,7 @@ post_install() {
 
     # 2. Service Activation
     echo ":: [ACTION] Enable your UI optimizations:"
-    echo "   systemctl --user enable --now xfwm4-priority.service"
+    echo "   sudo systemctl enable --now xfwm4-priority.service"
     
     # 3. Hardware Check
     echo ":: [INFO] USB Polling rules have been written to /etc/udev/rules.d/"
