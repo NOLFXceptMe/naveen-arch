@@ -1,33 +1,57 @@
 pkgname=naveen-customization
-pkgver=1.1.1
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="Naveen's Custom Arch: Zen Kernel, Zero-Lag HID, and XFWM4 Priority"
 arch=('any')
 license=('MIT')
-install=naveen-customization.install
+install=customization.install
 
 # Adding linux-zen and headers as hard dependencies for your "distro"
 depends=('linux-zen' 'linux-zen-headers' 'solaar' 'libinput' 'usbutils')
 
 source=('99-logitech-unifying.rules' 
-        '99-naveen.preset'
-        'naveen-optimizations.sh' 
-        'xfwm4-priority.service')
-sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
+        '99-custom.preset'
+        'optimizations.sh' 
+        'xfwm4-priority.service'
+        'xfce4-keyboard-shortcuts.xml'
+        'keyboard-shortcuts.md'
+        'validate.sh'
+        'apply-shortcuts.sh'
+        'naveen-xdg.sh')
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 package() {
   # 0. Pre-validation
-  install -Dm644 "99-naveen.preset" "${pkgdir}/usr/lib/systemd/user-preset/99-naveen.preset"
+  install -Dm644 "99-custom.preset" "${pkgdir}/usr/lib/systemd/user-preset/99-custom.preset"
 
   # 1. Hardware Rules
   install -Dm644 "99-logitech-unifying.rules" \
     "${pkgdir}/etc/udev/rules.d/99-logitech-unifying.rules"
 
   # 2. Optimization Scripts
-  install -Dm755 "naveen-optimizations.sh" \
-    "${pkgdir}/usr/bin/naveen-optimizations.sh"
+  install -Dm755 "optimizations.sh" \
+    "${pkgdir}/usr/bin/optimizations.sh"
+  install -Dm755 "validate.sh" \
+    "${pkgdir}/usr/bin/validate.sh"
+  install -Dm755 "apply-shortcuts.sh" \
+    "${pkgdir}/usr/bin/apply-shortcuts"
 
   # 3. Systemd Service
   install -Dm644 "xfwm4-priority.service" \
     "${pkgdir}/usr/lib/systemd/user/xfwm4-priority.service"
+
+  # 4. Keyboard Shortcuts (XDG Defaults)
+  # This sets system-wide defaults for anyone using XFCE on this machine
+  install -Dm644 "xfce4-keyboard-shortcuts.xml" \
+    "${pkgdir}/etc/xdg-naveen/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml"
+  
+  # 5. Profile path override
+  install -Dm755 "naveen-xdg.sh" \
+    "${pkgdir}/etc/profile.d/naveen-xdg.sh"
+
+  # 6. Documentation and Backups
+  install -Dm644 "xfce4-keyboard-shortcuts.xml" \
+    "${pkgdir}/usr/share/naveen-customization/xfce4-keyboard-shortcuts.xml"
+  install -Dm644 "keyboard-shortcuts.md" \
+    "${pkgdir}/usr/share/doc/naveen-customization/keyboard-shortcuts.md"
 }

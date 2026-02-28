@@ -14,7 +14,9 @@ echo ":: Building naveen-customization..."
 makepkg -sfC --noconfirm
 
 echo ":: Moving binaries to repo..."
-mkdir -p $REPO_DIR
+mkdir -p "$REPO_DIR"
+# Remove old packages to ensure the repo only contains the latest builds
+rm -f "$REPO_DIR"/*.pkg.tar.zst 
 mv *.pkg.tar.zst "$REPO_DIR/"
 
 echo ":: Updating repository database..."

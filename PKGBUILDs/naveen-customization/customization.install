@@ -21,6 +21,11 @@ post_install() {
     echo ":: [INFO] USB Polling rules have been written to /etc/udev/rules.d/"
     echo "   Reloading udev rules now..."
     udevadm control --reload-rules && udevadm trigger
+
+    # 4. Keyboard Shortcuts Notice
+    echo ":: [INFO] System-wide XDG defaults added to /etc/xdg-naveen/"
+    echo ":: [ACTION] To apply these shortcuts to your CURRENT user profile, run:"
+    echo "   apply-shortcuts"
     echo "----------------------------------------------------------------"
 }
 
